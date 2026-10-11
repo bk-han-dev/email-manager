@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Email Manager First Bot — Class Setup · AI Hustle Generation</title>
+<meta name="description" content="Set up your free Email Manager First Bot, get a license ID, and learn email and calendar basics with BK Han.">
+<meta name="robots" content="noindex">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#2b3340;--text:#e6edf3;--muted:#9aa7b4;--acc:#3fb950;--acc2:#58a6ff;--warn:#d29922}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:680px;margin:0 auto;padding:24px 18px 64px}
+h1{font-size:1.6rem;margin:.2em 0}
+h2{font-size:1.25rem;margin:0 0 .4em}
+.brand{color:var(--muted);font-size:.9rem;letter-spacing:.04em;text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin:14px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:#0b0f14;color:var(--text);font-size:16px}
+button,.btn{display:inline-block;border:0;border-radius:8px;padding:12px 18px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;margin:8px 8px 0 0}
+.primary{background:var(--acc);color:#04130a}
+.secondary{background:transparent;color:var(--acc2);border:1px solid var(--line)}
+.muted{color:var(--muted);font-size:.92rem}
+.lic{font:700 1.8rem/1.2 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.08em;color:var(--acc)}
+pre{white-space:pre-wrap;word-break:break-word;background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:8px 0}
+.consent{border-left:3px solid var(--warn);padding:8px 12px;background:#1c1a12;border-radius:6px;font-size:.92rem}
+.ok{border-left:3px solid var(--acc);padding:10px 12px;background:#10241a;border-radius:6px}
+.err{color:#ff7b72;font-size:.92rem;min-height:1.2em}
+ol li,ul li{margin:6px 0}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#1f2a37;color:var(--acc2);margin-right:6px}
+.hidden{display:none}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.back{background:none;border:0;color:var(--muted);font-size:.9rem;padding:8px 4px;text-decoration:underline}
+.dots{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+.dots i.on{background:var(--acc)}
+.dots i.cur{outline:2px solid var(--acc);outline-offset:2px}
+.motto{color:var(--acc);font-weight:700}
+footer{color:var(--muted);font-size:.85rem;margin-top:32px}
+a{color:var(--acc2)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0b0f14;padding:1px 5px;border-radius:4px}
+.placeholder{border:1px dashed var(--line);border-radius:8px;padding:14px 16px;background:#12161c;color:var(--muted);margin:12px 0}
+.placeholder b{color:var(--text)}
+.check{list-style:none;padding:0;margin:12px 0}
+.check li{display:flex;gap:10px;align-items:flex-start;margin:10px 0;padding:10px 12px;background:#0b0f14;border:1px solid var(--line);border-radius:8px}
+.check input{width:auto;margin-top:3px;flex-shrink:0}
+.check label{font-weight:400;margin:0}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">AI Hustle Generation · BK Han</div>
+  <h1>Email Manager First Bot — Class Setup</h1>
+  <p class="muted">Your free first bot: learn email and calendar basics, get a license ID, then unlock <b>Income Radar</b> when you're ready.</p>
+  <div class="dots" id="progress"></div>
+
+  <!-- S1 -->
+  <section id="s1">
+    <div class="card" id="signupCard">
+      <span class="tag">Step 1 of 8</span>
+      <h2>Sign up and get your license ID</h2>
+      <p class="muted">Use the email you'll send all your bot emails from. Your first email to BK's inbox registers your license ID to that address.</p>
+      <form id="signupForm" action="javascript:void(0)" method="dialog" novalidate>
+        <label for="name">Full name</label>
+        <input id="name" autocomplete="name" required>
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required>
+        <div class="err" id="signupErr"></div>
+        <button class="primary" type="submit">Get my license ID</button>
+      </form>
+    </div>
+    <div class="card hidden" id="licenseCard">
+      <span class="tag">Step 1 of 8</span>
+      <h2>Your license ID</h2>
+      <div class="lic" id="licShow">MLH-XXXX</div>
+      <p class="muted">Write it down. It goes in the subject of every email. It's saved in this browser too. <span id="licWho"></span></p>
+      <button class="secondary" type="button" data-copy="lic">Copy license ID</button>
+    </div>
+    <div class="card hidden" id="cardStep">
+      <h2>Save a card (no charge today)</h2>
+      <p>The trial is free until you close your first deal. Card saving comes later — skip for now.</p>
+      <div class="consent">
+        <b>When card saving is live:</b> Stripe saves your card securely. We never see your card number.
+        <b>Nothing is charged today.</b> After your first paying customer: a <b>S$10 one-time setup fee</b>, about <b>S$5–10/month API fee</b>, and a <b>20% success fee</b> on your first closed deal (billed separately).
+        Cancel anytime by emailing <a id="cancelMail" href="#">BK</a>.
+      </div>
+      <div class="placeholder" id="stripePlaceholder">
+        <b>Card saving (Stripe) — coming soon.</b><br>
+        Skip for now; nothing is charged tonight.
+      </div>
+      <button class="secondary" type="button" id="skipCardBtn">Skip for now</button>
+      <p class="muted">Nothing is charged tonight. You can continue with Next after skipping.</p>
+    </div>
+    <div class="card hidden" id="cardDone">
+      <div class="ok" id="cardDoneMsg">Skipped for now. You can save a card later; nothing is needed tonight.</div>
+    </div>
+  </section>
+
+  <!-- S2 -->
+  <section id="s2" class="hidden">
+    <div class="card">
+      <span class="tag">Step 2 of 8</span>
+      <h2>Create a new bot in the Grok app</h2>
+      <p>Open the Grok app and create a new Grok Bot. This one will be your <b>Email Manager First Bot</b>.</p>
+      <p>Give it a name you'll recognise, like <b>My Email Manager</b>.</p>
+      <p class="muted">You're done with this step when you have a new, empty bot ready for instructions.</p>
+    </div>
+  </section>
+
+  <!-- S3 -->
+  <section id="s3" class="hidden">
+    <div class="card">
+      <span class="tag">Step 3 of 8</span>
+      <h2>Paste the Email Manager First Bot instructions</h2>
+      <p>This First Bot is <b>free</b>. It teaches you email and calendar basics, then walks you through setup.</p>
+      <ol>
+        <li>Copy the instructions (button below) and paste them as your bot's instructions. Also on GitHub: <a href="https://github.com/bk-han-dev/bk-first-bot/blob/main/FIRST_BOT_INSTRUCTIONS.md" target="_blank" rel="noopener">FIRST_BOT_INSTRUCTIONS.md</a>.</li>
+        <li>Say “hi” to your bot and follow along.</li>
+        <li>When it asks, give it your license ID (<code class="licInline">MLH-XXXX</code>) and signup email.</li>
+      </ol>
+      <button class="primary" type="button" id="copyInstr">Copy First Bot instructions</button>
+      <div class="muted" id="copyInstrMsg"></div>
+      <textarea id="instrText" class="hidden" aria-hidden="true"></textarea>
+    </div>
+  </section>
+
+  <!-- S4: Learn email & calendar -->
+  <section id="s4" class="hidden">
+    <div class="card">
+      <span class="tag">Step 4 of 8</span>
+      <h2>Learn email &amp; calendar basics</h2>
+      <p>Your Email Manager bot will walk you through these. Tick them off as you go — about 10 minutes.</p>
+      <ul class="check" id="checklist">
+        <li><input type="checkbox" id="c1"><label for="c1">Connect <b>Gmail</b> and <b>Google Calendar</b> in your bot's connections (or settings). If you can't find it, ask BK or send email by hand later.</label></li>
+        <li><input type="checkbox" id="c2"><label for="c2"><b>Draft-not-send rule:</b> the bot drafts; you check; only you say “yes” before anything is sent.</label></li>
+        <li><input type="checkbox" id="c3"><label for="c3">Practice email: ask the bot to draft a short <b>test email to yourself</b>. Approve only if it looks right.</label></li>
+        <li><input type="checkbox" id="c4"><label for="c4">Practice calendar: add a 30-minute weekly event called <b>Lead hunt</b> (show details first, then yes).</label></li>
+        <li><input type="checkbox" id="c5"><label for="c5">Ask it to <b>find an email</b> (e.g. “find BK's email with my license ID”) and list <b>today's agenda</b>.</label></li>
+      </ul>
+      <p class="muted">Nothing leaves your account without your clear “yes”.</p>
+    </div>
+  </section>
+
+  <!-- S5: SETUP email -->
+  <section id="s5" class="hidden">
+    <div class="card">
+      <span class="tag">Step 5 of 8</span>
+      <h2>Send the SETUP email</h2>
+      <p>Your First Bot drafts this for you. Check it, then send it from <b class="emailInline">your signup email</b>.</p>
+      <pre id="setupTpl"></pre>
+      <a class="btn primary" id="setupMailto" href="#">Open in my email app</a>
+      <button class="secondary" type="button" data-copy="setup">Copy SETUP email</button>
+      <div class="ok" style="margin-top:14px"><b>BK's reply arrives within minutes</b> and contains the next-step instructions (including Income Radar / Map Lead Hunter). No reply? Check the license ID, the subject line, and that you sent it from your signup email.</div>
+    </div>
+  </section>
+
+  <!-- S6: Income Radar -->
+  <section id="s6" class="hidden">
+    <div class="card">
+      <span class="tag">Step 6 of 8</span>
+      <h2>Paid next step: Income Radar</h2>
+      <p class="muted">Powered by Map Lead Hunter</p>
+      <p>Income Radar finds local businesses that have <b>good reviews but no website, or a weak one</b>.</p>
+      <ul>
+        <li>Searches Google Maps, business directories, LinkedIn, Facebook groups and event sites.</li>
+        <li>Scores every lead out of 20.</li>
+        <li>Drafts outreach messages. <b>You review and send them yourself.</b></li>
+        <li>Brochure and landing pages only. No online shops, no multi-location businesses.</li>
+      </ul>
+      <p>For the full walkthrough (second bot, LEADS emails, and more), open the Income Radar class site:</p>
+      <a class="btn primary" href="https://bk-han-dev.github.io/income-radar-class/" target="_blank" rel="noopener">Open Income Radar class site</a>
+    </div>
+  </section>
+
+  <!-- S7: Pricing -->
+  <section id="s7" class="hidden">
+    <div class="card">
+      <span class="tag">Step 7 of 8</span>
+      <h2>Pricing</h2>
+      <ul>
+        <li><b>Email Manager First Bot:</b> free.</li>
+        <li><b>Income Radar:</b> no subscription fee. You pay only once you get a paying customer:
+          <ul>
+            <li>S$10 one-time setup</li>
+            <li>about S$5–10/month for API usage</li>
+            <li>20% success fee on your first closed deal</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="consent">Nothing is charged today. Charges start only after you land your first paying customer and confirm it with BK. Cancel anytime by emailing <a class="cancelInline" href="#"></a>.</div>
+    </div>
+  </section>
+
+  <!-- S8 -->
+  <section id="s8" class="hidden">
+    <div class="card">
+      <span class="tag">Step 8 of 8</span>
+      <h2>What's next</h2>
+      <ul>
+        <li><b>Realtor Bot Team</b> tiers for property agents. Your First Bot can tell you more.</li>
+        <li>A <b>Website Design bot</b> is coming later, to help you build the pages you sell.</li>
+      </ul>
+      <a class="btn primary" href="https://www.linkedin.com/groups/42843177/" target="_blank" rel="noopener">Join the Grok Bot Community on LinkedIn</a>
+      <a class="btn secondary" href="https://aihustlegeneration.com" target="_blank" rel="noopener">aihustlegeneration.com</a>
+    </div>
+  </section>
+
+  <div class="nav">
+    <button class="back" type="button" id="backBtn">‹ Back</button>
+    <button class="primary" type="button" id="nextBtn">Next</button>
+  </div>
+  <div class="err" id="navErr" style="text-align:right"></div>
+
+  <footer>
+    <p class="motto">Drink Coffee. Eat Pancake. Automate.</p>
+    <p>© 2026 AI Hustle Generation. Designed and created by BK Han.</p>
+    <p class="muted">No income is promised. Results depend on your own outreach.</p>
+    <p><a href="#" id="resetLink" class="muted">Start over on this device</a></p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var INBOX_ADDRESS = "aihustle-leads@mail.grokbot.com";
+  var CANCEL_EMAIL  = "bk@aihustlegeneration.com";
+  var STORE = "emailManagerClass.v1";
+
+  var FIRST_BOT_INSTRUCTIONS = `You are the student's First Bot, a friendly setup guide created by BK Han (AI Hustle Generation). This First Bot is FREE. Your jobs, in order:
+1. Teach the student basic email and calendar management with their own bot.
+2. Collect their setup details, one question at a time.
+3. Record their license ID (format MLH-XXXX, which they generated on BK's class signup page).
+4. Help them send their SETUP email to BK's backend.
+5. Deploy Map Lead Hunter, the PAID product, using the instructions that arrive in BK's reply.
+
+## Key facts to tell the student
+- This First Bot is free.
+- Map Lead Hunter is the paid product: $10 one-time setup, $5–10/month API fee, and a 20% success fee on their first closed deal (reported later; nothing to do tonight).
+- The business they are building: find local, single-location businesses in [niche] in [area] that have no website or a weak one, and offer them a simple brochure or landing page. No online shops, no multi-location sites.
+- All communication with BK's backend is by email to aihustle-leads@mail.grokbot.com, and every email must have the license ID in the subject. There is no app, no chat with BK's bots, and no API.
+- Emails must come from the email address the student used on the class signup page. The first email registers their license ID to that address; after that, emails from any other address are ignored. No need to tell BK beforehand.
+- You may mention that BK also offers Realtor Bot Team tiers (for property agents) and that a Website Design bot is coming later.
+
+## Style
+Plain, warm, short messages. Ask ONE question at a time and wait for the answer. Never rush. Never send an email or create a calendar event without showing it first and getting a clear "yes".
+
+## Part 1: Email and calendar basics (about 10 minutes)
+1. Greet the student and explain the parts above in 3 short lines.
+2. Ask whether they have connected their email (for example Gmail) and calendar (for example Google Calendar) to this bot. If not, tell them to connect both in their bot's connections or settings, then come back. If they can't find it, tell them to ask BK or skip to Part 2; email can also be sent by hand.
+3. Practice email: offer to draft a short test email to themselves. Show the draft. Explain: "I draft, you check, and only you approve sending." Send only if they say yes.
+4. Practice calendar: offer to add a 30-minute event called "Lead hunt" next week at a time they choose. Show the details first, add it only on yes. Suggest making it weekly.
+5. Show them how to ask you to find an email ("find BK's email with my license ID") and list today's events.
+
+## Part 2: Setup questions (ask one at a time)
+1. Your full name?
+2. Your license ID from the class signup page (looks like MLH-XXXX)? Check the format: "MLH-" then 4 characters from A–Z and 2–9 (no 0, O, 1 or I). If it doesn't match, ask them to check the signup page. If they don't have one yet, tell them to get one from the signup page first.
+3. Which email address did you sign up with? (Send every email from that address.)
+4. Which kind of local business do you want to target? (Your niche, for example [bakeries], [hair salons], [tuition centres], [renovation contractors].)
+5. Which area? (For example [Tampines, Singapore].)
+6. Which outreach channels are you willing to use? (Email, phone, WhatsApp to businesses that published their number, walk-in.)
+7. How many hours a week can you give this?
+
+Then repeat all answers back as a short summary and ask "Is this correct?" Fix anything they change.
+
+## Part 3: Send the SETUP email
+Draft this email and show it to the student. Send it only after they say yes (or let them copy it and send it by hand from their signup email):
+
+To: aihustle-leads@mail.grokbot.com
+Subject: SETUP | [MLH-XXXX] | [Full Name]
+Body:
+License: [MLH-XXXX]
+Name: [Full Name]
+Niche: [niche]
+Area: [area]
+Channels: [channels]
+
+Tell them: "You should get a reply within minutes once BK's system processes it. If not, check the license ID, the subject format, and that you sent from your signup email."
+
+BK's reply contains the full Map Lead Hunter instructions. Once it arrives, go to Part 4.
+
+## Part 4: Deploy Map Lead Hunter (after BK's reply arrives)
+1. Explain: "Your second bot, Map Lead Hunter, finds and scores the leads. It's the paid product. Its instructions are in BK's reply to your SETUP email."
+2. Help the student find that reply (search their inbox for "SETUP" and their license ID). Guide them to create a second Grok Bot named "Map Lead Hunter" and paste in the text between the "MAP LEAD HUNTER INSTRUCTIONS" lines as its instructions.
+3. Give them this first message to send to Map Lead Hunter, filled in with their answers:
+   "My license ID is [MLH-XXXX]. Find up to 25 single-location [niche] businesses in [area] with no website or a weak website. Score each out of 20, give me a CSV, and draft (don't send) the LEADS email to aihustle-leads@mail.grokbot.com."
+
+## Rules you always follow
+- You never send anything without the student's yes.
+- Public business information only. No personal data such as NRIC numbers or home addresses.
+- In Singapore, respect PDPA and the Do Not Call registry: check DNC before calling or texting a Singapore number, include an opt-out, and stop at once if someone says no.
+- Never promise income. Results depend on the student's own outreach.
+`;
+
+  function load() { try { return JSON.parse(localStorage.getItem(STORE)) || {}; } catch (e) { return {}; } }
+  function save(s) { try { localStorage.setItem(STORE, JSON.stringify(s)); } catch (e) {} }
+  var st = load();
+  var $ = function (id) { return document.getElementById(id); };
+
+  var ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  function newLicense() {
+    var a = new Uint8Array(4), out = "MLH-";
+    if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a);
+    else for (var i = 0; i < 4; i++) a[i] = Math.floor(Math.random() * 256);
+    for (var j = 0; j < 4; j++) out += ALPHA[a[j] % ALPHA.length];
+    return out;
+  }
+
+  var TOTAL = 8;
+  for (var d = 0; d < TOTAL; d++) $("progress").appendChild(document.createElement("i"));
+  function show(n) {
+    n = Math.max(1, Math.min(TOTAL, n));
+    st.screen = n; save(st);
+    for (var i = 1; i <= TOTAL; i++) $("s" + i).classList.toggle("hidden", i !== n);
+    var dots = $("progress").children;
+    for (var k = 0; k < dots.length; k++) { dots[k].classList.toggle("on", k < n); dots[k].classList.toggle("cur", k === n - 1); }
+    $("backBtn").style.visibility = n > 1 ? "visible" : "hidden";
+    $("nextBtn").style.display = n < TOTAL ? "" : "none";
+    $("navErr").textContent = "";
+    window.scrollTo(0, 0);
+  }
+
+  function setupSubject() { return "SETUP | " + st.license + " | " + st.name; }
+  function setupBody() {
+    return "License: " + st.license + "\nName: " + st.name + "\nNiche: [your niche, e.g. bakeries]\nArea: [your area, e.g. Tampines, Singapore]\nChannels: [e.g. email, phone]";
+  }
+  function setupText() { return "To: " + INBOX_ADDRESS + "\nSubject: " + setupSubject() + "\n\n" + setupBody(); }
+
+  function render() {
+    var has = !!st.license;
+    $("signupCard").classList.toggle("hidden", has);
+    $("licenseCard").classList.toggle("hidden", !has);
+    $("cardStep").classList.toggle("hidden", !has || !!st.cardDecided);
+    $("cardDone").classList.toggle("hidden", !has || !st.cardDecided);
+    if (!has) return;
+    $("licShow").textContent = st.license;
+    $("licWho").textContent = "Registered to: " + st.email;
+    $("cardDoneMsg").textContent = "Skipped for now. You can save a card later; nothing is needed tonight.";
+    document.querySelectorAll(".licInline").forEach(function (e) { e.textContent = st.license; });
+    document.querySelectorAll(".emailInline").forEach(function (e) { e.textContent = st.email; });
+    document.querySelectorAll(".cancelInline").forEach(function (e) {
+      e.textContent = CANCEL_EMAIL;
+      e.href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | Email Manager | " + st.license);
+    });
+    $("setupTpl").textContent = setupText();
+    $("setupMailto").href = "mailto:" + INBOX_ADDRESS + "?subject=" + encodeURIComponent(setupSubject()) + "&body=" + encodeURIComponent(setupBody());
+  }
+
+  function copy(text, btn) {
+    var done = function () { if (btn) { var t = btn.textContent; btn.textContent = "Copied ✔"; setTimeout(function () { btn.textContent = t; }, 1500); } };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+    } else fallbackCopy(text, done);
+  }
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (e) { prompt("Copy this:", text); }
+    document.body.removeChild(ta);
+  }
+
+  $("cancelMail").href = "mailto:" + CANCEL_EMAIL + "?subject=" + encodeURIComponent("CANCEL | Email Manager card");
+  $("cancelMail").textContent = CANCEL_EMAIL;
+  $("instrText").value = FIRST_BOT_INSTRUCTIONS;
+
+  // restore checklist
+  ["c1","c2","c3","c4","c5"].forEach(function (id) {
+    var el = $(id);
+    if (st.checks && st.checks[id]) el.checked = true;
+    el.addEventListener("change", function () {
+      st.checks = st.checks || {};
+      st.checks[id] = el.checked;
+      save(st);
+    });
+  });
+
+  $("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("name").value.trim(), email = $("email").value.trim();
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      $("signupErr").textContent = "Please enter your name and a valid email."; return;
+    }
+    st.name = name; st.email = email; st.license = st.license || newLicense();
+    save(st); render();
+  });
+
+  $("skipCardBtn").addEventListener("click", function () {
+    st.cardDecided = true; st.cardSaved = false; save(st); render();
+  });
+
+  document.addEventListener("click", function (e) {
+    var c = e.target.getAttribute && e.target.getAttribute("data-copy");
+    if (c === "lic") copy(st.license, e.target);
+    if (c === "setup") copy(setupText(), e.target);
+  });
+
+  $("copyInstr").addEventListener("click", function () {
+    copy(FIRST_BOT_INSTRUCTIONS, this);
+    $("copyInstrMsg").textContent = "";
+  });
+
+  $("nextBtn").addEventListener("click", function () {
+    if (st.screen === 1 && !st.license) { $("navErr").textContent = "Enter your name and email first."; return; }
+    show(st.screen + 1);
+  });
+  $("backBtn").addEventListener("click", function () { show(st.screen - 1); });
+
+  $("resetLink").addEventListener("click", function (e) {
+    e.preventDefault();
+    if (confirm("Clear your saved name, email and license ID from this browser? Write your license ID down first.")) {
+      localStorage.removeItem(STORE);
+      location.href = location.href.split("?")[0].split("#")[0];
+    }
+  });
+
+  render();
+  show(st.screen && st.license ? st.screen : 1);
+})();
+</script>
+</body>
+</html>
